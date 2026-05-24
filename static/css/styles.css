@@ -17,7 +17,7 @@
   .nav { position: sticky; top:0; z-index: 50; background: rgba(11,29,54,.94); backdrop-filter: blur(10px); color:#fff; padding: 16px 48px; display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid rgba(201,161,74,.15); }
   .logo { font-family: Georgia, serif; font-size: 18px; letter-spacing: 2px; display:flex; align-items:center; gap: 8px; }
   .logo svg { width: 26px; height: 26px; }
-  .nav ul { display:flex; gap:30px; list-style:none; padding:0; margin:0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-menu { display:flex; gap:30px; list-style:none; padding:0; margin:0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
   .nav a { color: #cdd5e0; text-decoration:none; transition: color .2s; cursor: pointer; }
   .nav a:hover { color: var(--gold); }
   .nav .cta { background: var(--gold); color: var(--ink); padding: 9px 20px; border-radius: 2px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: transform .2s; }
