@@ -10,6 +10,8 @@
   }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: var(--cream); color: var(--body); }
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 72px; }
 
   /* ============ NAV ============ */
   .nav { position: sticky; top:0; z-index: 50; background: rgba(11,29,54,.94); backdrop-filter: blur(10px); color:#fff; padding: 16px 48px; display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid rgba(201,161,74,.15); }
@@ -189,6 +191,12 @@
   .route-svg { display: none; }
   .stop { text-align: left; padding: 16px; background: rgba(255,255,255,.04); border-left: 3px solid var(--gold); border-radius: 2px; align-items: flex-start; }
   .stop-marker { display: none; }
+
+  .foot { flex-direction: column; gap: 6px; text-align: center; padding: 22px 24px; }
+  .sec-title { font-size: 26px; }
+  .contact h3 { font-size: 26px; }
+  .journey-detail { padding: 22px; }
+  .floating-icon { font-size: 9px; padding: 6px 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
