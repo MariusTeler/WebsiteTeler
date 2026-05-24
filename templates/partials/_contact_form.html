@@ -1,0 +1,18 @@
+<form id="contact-form-wrap" class="form" hx-post="{{ url_for('contact_submit') }}" hx-target="#contact-form-wrap" hx-swap="outerHTML">
+  {{ form.csrf_token }}
+  <input type="text" name="hp_field" class="hp" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;">
+
+  <label for="name">Your name</label>
+  {{ form.name(id="name", placeholder="John Doe") }}
+  {% if form.name.errors %}<div class="form-err">{{ form.name.errors[0] }}</div>{% endif %}
+
+  <label for="email">Email</label>
+  {{ form.email(id="email", placeholder="john@company.com") }}
+  {% if form.email.errors %}<div class="form-err">{{ form.email.errors[0] }}</div>{% endif %}
+
+  <label for="message">Message</label>
+  {{ form.message(id="message", rows=4, placeholder="What can I help you with?") }}
+  {% if form.message.errors %}<div class="form-err">{{ form.message.errors[0] }}</div>{% endif %}
+
+  <button type="submit">Send message →</button>
+</form>

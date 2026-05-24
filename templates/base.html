@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1d36">
+
+  <title>{% block title %}Marius Teler — Executive Director · Courier IT & Operations{% endblock %}</title>
+  <meta name="description" content="Two decades in the courier industry — from the call-center floor to the executive chair. I direct DSC Dragon Star Curier with IT and Development under my remit.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://teler.net/">
+  <meta property="og:title" content="Marius Teler — Executive Director · Courier IT & Operations">
+  <meta property="og:description" content="Self-taught. Optimizing courier businesses since 2008.">
+  <meta property="og:image" content="https://teler.net/static/img/og-image.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Marius Teler — Executive Director">
+  <meta name="twitter:description" content="Self-taught. Optimizing courier businesses since 2008.">
+  <meta name="twitter:image" content="https://teler.net/static/img/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+  <script src="https://unpkg.com/htmx.org@2.0.3" defer></script>
+
+  <!-- JSON-LD Person schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Teler Marius Adrian",
+    "jobTitle": "Executive Director",
+    "worksFor": { "@type": "Organization", "name": "DSC Dragon Star Curier" },
+    "email": "marius.teler@gmail.com",
+    "telephone": "+4070064137",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Chiajna",
+      "addressRegion": "Bucharest",
+      "addressCountry": "RO"
+    },
+    "sameAs": [
+      "https://github.com/MariusTeler",
+      "https://www.facebook.com/marius.teler"
+    ],
+    "url": "https://teler.net"
+  }
+  </script>
+</head>
+<body>
+  {% include "partials/_nav.html" %}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  {% include "partials/_footer.html" %}
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>

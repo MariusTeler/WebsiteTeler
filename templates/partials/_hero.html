@@ -1,0 +1,43 @@
+<section class="hero" id="hero">
+  <div class="hero-route" aria-hidden="true">
+    <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
+      <path class="route-path" d="M -50,420 C 200,300 350,500 600,360 S 950,220 1200,340 S 1450,420 1500,300"/>
+      <path class="route-path" d="M -50,180 C 150,260 380,140 580,220 S 880,340 1100,200 S 1400,160 1500,250" style="stroke:rgba(201,161,74,.18);"/>
+      <g>
+        <circle class="hub" cx="200" cy="362" r="3.5"/>
+        <circle class="hub-ring" cx="200" cy="362" r="4" style="animation: pulse-ring 3s ease-out infinite;"/>
+      </g>
+      <g>
+        <circle class="hub" cx="700" cy="298" r="3.5"/>
+        <circle class="hub-ring" cx="700" cy="298" r="4" style="animation: pulse-ring 3s ease-out infinite 1s;"/>
+      </g>
+      <g>
+        <circle class="hub" cx="1080" cy="332" r="3.5"/>
+        <circle class="hub-ring" cx="1080" cy="332" r="4" style="animation: pulse-ring 3s ease-out infinite 2s;"/>
+      </g>
+      <rect class="parcel" width="10" height="10" x="-5" y="-5" rx="2" style="offset-path: path('M -50,420 C 200,300 350,500 600,360 S 950,220 1200,340 S 1450,420 1500,300'); animation: travel 12s linear infinite;"/>
+      <rect class="parcel-2" width="8" height="8" x="-4" y="-4" rx="2" style="offset-path: path('M -50,420 C 200,300 350,500 600,360 S 950,220 1200,340 S 1450,420 1500,300'); animation: travel 12s linear infinite -6s;"/>
+      <rect class="parcel" width="9" height="9" x="-4.5" y="-4.5" rx="2" style="offset-path: path('M -50,180 C 150,260 380,140 580,220 S 880,340 1100,200 S 1400,160 1500,250'); animation: travel 14s linear infinite -3s;"/>
+    </svg>
+  </div>
+
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Executive Director · Courier IT &amp; Operations</div>
+      <h1>Turning courier operations into <em>clean, measurable systems.</em></h1>
+      <p class="lead">Two decades in the courier industry — from the call-center floor to the executive chair. I direct the business, build the software, write the reports, and lead the teams that keep parcels moving and customers happy.</p>
+      <div class="actions">
+        <a class="btn-primary" href="#contact">Work with me →</a>
+        <a class="btn-ghost" href="{{ url_for('download_cv') }}">Download CV</a>
+      </div>
+    </div>
+    <div class="portrait-wrap">
+      <div class="portrait-ring-2"></div>
+      <div class="portrait-ring"></div>
+      <img class="portrait" src="{{ url_for('static', filename='img/portrait.jpg') }}" alt="Marius Teler portrait">
+      <div class="floating-icon fi-1">18+ yrs</div>
+      <div class="floating-icon fi-2">Exec Dir</div>
+      <div class="floating-icon fi-3">Python · HTMX</div>
+    </div>
+  </div>
+</section>
