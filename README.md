@@ -13,7 +13,7 @@ Front-end notes: `static/js/main.js` is progressive enhancement only (hero route
 
 ## Local development
 
-Requires Python 3.13+ (Railway uses the version pinned in `runtime.txt`).
+Requires Python 3.13+. `runtime.txt` pins only the minor version (`python-3.13`), so Railway installs the latest 3.13.x patch; exact patch pins like 3.13.1 predate the build attestations Railway now verifies and fail to install.
 
 ```bash
 python3 -m venv .venv
