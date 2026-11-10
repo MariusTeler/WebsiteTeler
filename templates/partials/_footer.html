@@ -1,4 +1,15 @@
 <footer class="foot">
-  <span>© {{ current_year }} Teler Marius Adrian</span>
-  <span>Built with Python · Flask · HTMX</span>
+  <div class="wrap">
+    <p class="foot-sign" aria-hidden="true">Marius Teler</p>
+    <div class="foot-row">
+      <span>© {{ current_year }} Teler Marius Adrian</span>
+      <nav class="foot-links" aria-label="{{ t.footer.elsewhere }}">
+        <a href="https://github.com/MariusTeler" rel="noopener" target="_blank">GitHub</a>
+        <a href="mailto:marius.teler@gmail.com">{{ t.footer.email }}</a>
+        <a href="{{ cv_href }}">{{ t.footer.cv }}</a>
+        <a href="{{ alt_home }}" hreflang="{{ alt_lang }}" lang="{{ alt_lang }}" data-lang-switch>{{ t.nav.switch_label }}</a>
+      </nav>
+      <a class="foot-top" href="{{ home }}#top">{{ t.footer.top }}</a>
+    </div>
+  </div>
 </footer>

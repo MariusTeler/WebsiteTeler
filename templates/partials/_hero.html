@@ -1,43 +1,62 @@
-<section class="hero" id="hero">
-  <div class="hero-route" aria-hidden="true">
-    <svg viewBox="0 0 1400 600" preserveAspectRatio="none">
-      <path class="route-path" d="M -50,420 C 200,300 350,500 600,360 S 950,220 1200,340 S 1450,420 1500,300"/>
-      <path class="route-path" d="M -50,180 C 150,260 380,140 580,220 S 880,340 1100,200 S 1400,160 1500,250" style="stroke:rgba(201,161,74,.18);"/>
-      <g>
-        <circle class="hub" cx="200" cy="362" r="3.5"/>
-        <circle class="hub-ring" cx="200" cy="362" r="4" style="animation: pulse-ring 3s ease-out infinite;"/>
-      </g>
-      <g>
-        <circle class="hub" cx="700" cy="298" r="3.5"/>
-        <circle class="hub-ring" cx="700" cy="298" r="4" style="animation: pulse-ring 3s ease-out infinite 1s;"/>
-      </g>
-      <g>
-        <circle class="hub" cx="1080" cy="332" r="3.5"/>
-        <circle class="hub-ring" cx="1080" cy="332" r="4" style="animation: pulse-ring 3s ease-out infinite 2s;"/>
-      </g>
-      <rect class="parcel" width="10" height="10" x="-5" y="-5" rx="2" style="offset-path: path('M -50,420 C 200,300 350,500 600,360 S 950,220 1200,340 S 1450,420 1500,300'); animation: travel 12s linear infinite;"/>
-      <rect class="parcel-2" width="8" height="8" x="-4" y="-4" rx="2" style="offset-path: path('M -50,420 C 200,300 350,500 600,360 S 950,220 1200,340 S 1450,420 1500,300'); animation: travel 12s linear infinite -6s;"/>
-      <rect class="parcel" width="9" height="9" x="-4.5" y="-4.5" rx="2" style="offset-path: path('M -50,180 C 150,260 380,140 580,220 S 880,340 1100,200 S 1400,160 1500,250'); animation: travel 14s linear infinite -3s;"/>
-    </svg>
-  </div>
+{% set h = t.hero %}
+<section class="hero" id="top" data-hero>
+  <canvas class="hero-network" aria-hidden="true" data-network></canvas>
+  <div class="hero-glow" aria-hidden="true"></div>
 
   <div class="hero-grid">
-    <div>
-      <div class="eyebrow">Executive Director · Courier IT &amp; Operations</div>
-      <h1>Turning courier operations into <em>clean, measurable systems.</em></h1>
-      <p class="lead">Two decades in the courier industry — from the call-center floor to the executive chair. I direct the business, build the software, write the reports, and lead the teams that keep parcels moving and customers happy.</p>
-      <div class="actions">
-        <a class="btn-primary" href="#contact">Work with me →</a>
-        <a class="btn-ghost" href="{{ url_for('download_cv') }}">Download CV</a>
+    <div class="hero-copy">
+      <p class="hero-intro load-in" style="--d:.05s">
+        <span class="status-dot" aria-hidden="true"></span>
+        {{ h.intro }}
+      </p>
+      <h1 class="hero-title" aria-label="{{ h.title }}">
+        {% for line in h.title_lines %}
+        <span class="line" aria-hidden="true"><span style="--d:{{ '%.2f'|format(0.15 + loop.index0 * 0.12) }}s">{{ line }}{% if loop.last %}<i class="parcel-stop"></i>{% endif %}</span></span>
+        {% endfor %}
+      </h1>
+      <p class="hero-lead load-in" style="--d:.6s">{{ h.lead }}</p>
+      <div class="hero-actions load-in" style="--d:.72s">
+        <a class="btn btn-gold" href="#contact" data-magnetic><span>{{ h.cta }}</span></a>
+        <a class="btn btn-line" href="{{ cv_href }}">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>{{ h.cv }}</span>
+        </a>
       </div>
     </div>
-    <div class="portrait-wrap">
-      <div class="portrait-ring-2"></div>
-      <div class="portrait-ring"></div>
-      <img class="portrait" src="{{ url_for('static', filename='img/portrait.jpg') }}" alt="Marius Teler portrait">
-      <div class="floating-icon fi-1">18+ yrs</div>
-      <div class="floating-icon fi-2">Exec Dir</div>
-      <div class="floating-icon fi-3">Python · HTMX</div>
+
+    <div class="hero-visual load-in" style="--d:.3s">
+      <figure class="portrait" data-tilt>
+        <img src="{{ static_v('img/portrait.jpg') }}" alt="{{ h.portrait_alt }}" width="600" height="600" fetchpriority="high">
+      </figure>
+
+      <aside class="tracking" aria-label="{{ h.tracking_label }}">
+        <header class="tracking-head">
+          <span class="tracking-id">{{ h.tracking_id }}</span>
+          <span class="tracking-chip">{{ h.tracking_chip }}</span>
+        </header>
+        <ol class="tracking-steps">
+          {% for step in h.steps %}
+          <li style="--i:{{ loop.index0 }}"{% if loop.last %} class="is-current"{% endif %}><b>{{ step[0] }}</b><span>{{ step[1] }}</span></li>
+          {% endfor %}
+        </ol>
+      </aside>
     </div>
   </div>
+
+  <dl class="ledger" aria-label="{{ h.ledger_label }}">
+    {% for item in h.ledger %}
+    <div class="ledger-item load-in" style="--d:{{ '%.2f'|format(0.85 + loop.index0 * 0.07) }}s"><dt>{{ item[0] }}</dt><dd data-count="{{ item[1] }}"{% if item[2] %} data-suffix="{{ item[2] }}"{% endif %}>{{ item[1] }}{{ item[2] }}</dd></div>
+    {% endfor %}
+  </dl>
 </section>
+
+<div class="marquee" aria-label="{{ h.marquee_label }}">
+  <div class="marquee-track">
+    {% set items = tools + h.marquee_extra %}
+    {% for pass in range(2) %}
+    <ul {% if pass %}aria-hidden="true"{% endif %}>
+      {% for item in items %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
+</div>

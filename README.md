@@ -2,7 +2,14 @@
 
 Single-page personal website for Marius Teler Adrian — Executive Director, courier IT & operations.
 
-Built with Flask + HTMX + vanilla CSS. Deployed to Railway at <https://teler.net>.
+Built with Flask + HTMX (self-hosted in `static/js/vendor/`) + vanilla CSS/JS, no build step. Deployed to Railway at <https://teler.net>.
+
+Front-end notes: `static/js/main.js` is progressive enhancement only (hero route network on canvas, scroll-driven Journey, word-by-word About statement, nav state). With JavaScript off, or with `prefers-reduced-motion`, every section still renders as static content.
+
+## Content, languages and CV
+
+- The site is bilingual: English at `/`, Romanian at `/ro/`. All visible copy lives in `content.py` (one dict per language, same structure; a test enforces it). Project screenshots are in `static/img/projects/`.
+- The CV is generated, not hand-edited: change the text in `cv_content.py`, then run `python3 scripts/make_cv.py` (any Python with the app requirements plus `playwright` and its Chromium). It writes `static/files/cv-marius-teler.pdf` (served at `/cv`) and `cv-marius-teler-ro.pdf` (served at `/ro/cv`). The HTML source is at `/cv/preview?lang=en|ro`.
 
 ## Local development
 
@@ -25,7 +32,7 @@ Open <http://localhost:5050>.
 .venv/bin/pytest -v
 ```
 
-Current count: 14 tests covering health, index, CV download, contact form validation, Mailgun client, contact route (HTMX swap, honeypot, validation errors, upstream failure), and rate limiting.
+Current count: 34 tests covering English/Romanian content parity, the Romanian pages and form messages, both CVs, health, index, CV download, contact form validation, Mailgun client, contact route (HTMX swap, honeypot, validation errors, upstream failure), rate limiting, robots/sitemap, the 404 page, security headers, and static asset versioning.
 
 ## Deploy (Railway)
 

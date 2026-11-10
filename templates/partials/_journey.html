@@ -1,63 +1,41 @@
-<section class="journey" id="journey">
-  <div class="sec-label">The journey</div>
-  <h2 class="sec-title">A 20-year route through the courier industry</h2>
-
-  <div class="route-container">
-    <svg class="route-svg" viewBox="0 0 1100 180" preserveAspectRatio="none" aria-hidden="true">
-      <path class="route-bg" d="M 50,90 C 180,30 260,150 390,90 S 590,30 720,90 S 870,150 1050,90"/>
-      <path class="route-fg" d="M 50,90 C 180,30 260,150 390,90 S 590,30 720,90 S 870,150 1050,90"/>
-      <g style="offset-path: path('M 50,90 C 180,30 260,150 390,90 S 590,30 720,90 S 870,150 1050,90'); animation: travel 8s ease-in-out infinite alternate;">
-        <rect class="route-parcel" x="-9" y="-9" width="18" height="18" rx="3"/>
-      </g>
-    </svg>
-
-    <div class="stops">
-      <div class="stop">
-        <div class="stop-marker"></div>
-        <div class="stop-date">2006</div>
-        <div class="stop-role">Network Manager</div>
-        <div class="stop-co">Inttel Connect</div>
+{% set j = t.journey %}
+{% set n = j.stops|length %}
+<section class="journey" id="journey" data-journey style="--stops: {{ n }}">
+  <div class="journey-sticky">
+    <div class="wrap journey-head">
+      <div>
+        <h2 class="kicker">{{ j.kicker }}</h2>
+        <p class="section-title">{{ j.title }}</p>
       </div>
-      <div class="stop">
-        <div class="stop-marker"></div>
-        <div class="stop-date">2008–19</div>
-        <div class="stop-role">Support &amp; Ops</div>
-        <div class="stop-co">Nemo Express</div>
-      </div>
-      <div class="stop">
-        <div class="stop-marker"></div>
-        <div class="stop-date">2019–21</div>
-        <div class="stop-role">Project Manager</div>
-        <div class="stop-co">Nemo Express</div>
-      </div>
-      <div class="stop">
-        <div class="stop-marker"></div>
-        <div class="stop-date">2021–22</div>
-        <div class="stop-role">CIO</div>
-        <div class="stop-co">Nemo Express</div>
-      </div>
-      <div class="stop">
-        <div class="stop-marker"></div>
-        <div class="stop-date">2022–23</div>
-        <div class="stop-role">IT / Ops</div>
-        <div class="stop-co">Colete Online</div>
-      </div>
-      <div class="stop">
-        <div class="stop-marker"></div>
-        <div class="stop-date">2023–24</div>
-        <div class="stop-role">IT / Ops</div>
-        <div class="stop-co">Innoship</div>
-      </div>
-      <div class="stop">
-        <div class="stop-marker"></div>
-        <div class="stop-date">2024 — Now</div>
-        <div class="stop-role">Executive Director</div>
-        <div class="stop-co">DSC · IT &amp; Dev Lead</div>
-      </div>
+      <p class="journey-count" aria-hidden="true"><span data-stop-index>1</span> {{ j.count.format(n=n) }}</p>
     </div>
-  </div>
 
-  <div class="journey-detail">
-    <p>From <b>computer operator</b> at the desk to the <b>Executive Director</b> chair — same industry, deeper view at every step. Today I direct DSC Dragon Star Curier with <b>IT and Development</b> under my remit, shipping the internal tooling (<b>DSC-Utils</b> — validations, hub routing, courier analytics) on a Flask + HTMX + PostgreSQL stack that keeps the operation measurable.</p>
+    <div class="journey-map" aria-hidden="true">
+      <svg viewBox="0 0 1200 200" preserveAspectRatio="xMidYMid meet">
+        <path class="jr-bg" d="M 40,130 C 170,40 270,190 410,115 S 640,30 780,110 S 990,185 1160,70"/>
+        <path class="jr-fg" data-route d="M 40,130 C 170,40 270,190 410,115 S 640,30 780,110 S 990,185 1160,70"/>
+        <g data-stop-dots></g>
+        <g class="jr-parcel" data-parcel>
+          <circle r="22" class="jr-parcel-halo"/>
+          <rect x="-9" y="-9" width="18" height="18" rx="3"/>
+          <path d="M -9,-2 H 9 M 0,-9 V -2" />
+        </g>
+      </svg>
+    </div>
+
+    <ol class="stops wrap" data-stops>
+      {% for s in j.stops %}
+      {% set year = stops_meta[loop.index0].year %}
+      <li class="stop{% if loop.last %} is-now{% endif %}" data-year="{{ year }}">
+        <span class="stop-year" aria-hidden="true">{{ year }}</span>
+        <div class="stop-body">
+          <p class="stop-when">{{ s.when }}</p>
+          <h3 class="stop-role">{{ s.role }}</h3>
+          <p class="stop-co">{{ s.co }}</p>
+          <p class="stop-text">{{ s.text }}</p>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
   </div>
 </section>

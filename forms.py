@@ -24,3 +24,26 @@ class ContactForm(FlaskForm):
     @property
     def is_honeypot_filled(self) -> bool:
         return bool(self.hp_field.data and self.hp_field.data.strip())
+
+
+class ContactFormRO(ContactForm):
+    """Same fields and rules as ContactForm, with Romanian error messages."""
+    name = StringField(
+        "Numele tău",
+        validators=[DataRequired(message="Te rog să îți scrii numele."),
+                    Length(min=2, max=80, message="Numele trebuie să aibă între 2 și 80 de caractere.")],
+    )
+    email = StringField(
+        "Email",
+        validators=[DataRequired(message="Te rog să îți scrii adresa de email."),
+                    Email(message="Te rog să scrii o adresă de email validă.")],
+    )
+    message = TextAreaField(
+        "Mesaj",
+        validators=[DataRequired(message="Te rog să scrii un mesaj."),
+                    Length(min=10, max=4000, message="Mesajul trebuie să aibă între 10 și 4000 de caractere.")],
+    )
+
+
+def contact_form_for(lang: str) -> ContactForm:
+    return ContactFormRO() if lang == "ro" else ContactForm()

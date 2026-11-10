@@ -1,4 +1,8 @@
-<div id="contact-form-wrap" class="form" style="text-align:center;">
-  <h4 style="font-family:Georgia,serif;color:#c9a14a;margin:0 0 10px;font-size:22px;">Thanks — message sent.</h4>
-  <p style="color:#cdd5e0;font-size:14px;margin:0;">I'll get back to you within 24 hours. Usually faster.</p>
+<div id="contact-form-wrap" class="form form-result is-success" role="status">
+  <svg class="delivered" viewBox="0 0 120 120" aria-hidden="true">
+    <circle class="delivered-ring" cx="60" cy="60" r="52"/>
+    <path class="delivered-check" d="M38 62 l15 15 l30 -32"/>
+  </svg>
+  <p class="form-result-title">{{ t.contact.success_title }}</p>
+  <p class="form-result-text">{{ t.contact.success_text }}</p>
 </div>
