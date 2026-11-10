@@ -1,16 +1,17 @@
-<section class="sec about" id="about" style="max-width:1200px;">
-  <div class="sec-label">About</div>
-  <h2 class="sec-title">Self-taught. Optimizing businesses since 2008.</h2>
-  <div class="about-grid">
-    <p>I started as a computer operator at Nemo Express in 2006. Over 14 years I worked my way through customer support, POD coordination and project management to the CIO seat. Since 2022 I've brought that operational fluency to Colete Online, Innoship, and now DSC — Dragon Star Curier, where I serve as <b>Executive Director, also leading IT and Development</b>. My day-to-day sits at the intersection of leadership and code: directing the business while shipping the internal tooling (Python, Flask, HTMX, PostgreSQL) that keeps the operation measurable.</p>
-    <div class="glance-card">
-      <h4>At a glance</h4>
-      <ul>
-        <li><span class="label-sm">Based in</span><b>Chiajna, RO</b></li>
-        <li><span class="label-sm">Current</span><b>DSC Dragon Star</b></li>
-        <li><span class="label-sm">Stack</span><b>Python · Flask · HTMX</b></li>
-        <li><span class="label-sm">Languages</span><b>RO · EN C1</b></li>
-      </ul>
+{% set a = t.about %}
+<section class="about" id="about">
+  <div class="wrap">
+    <h2 class="kicker">{{ a.kicker }}</h2>
+    <p class="statement" data-words>{{ a.statement }}</p>
+
+    <div class="about-grid">
+      <div class="about-copy">
+        {% for p in a.paragraphs %}<p>{{ p }}</p>{% endfor %}
+      </div>
+
+      <dl class="facts">
+        {% for f in a.facts %}<div><dt>{{ f[0] }}</dt><dd>{{ f[1] }}</dd></div>{% endfor %}
+      </dl>
     </div>
   </div>
 </section>

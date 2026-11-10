@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}" class="no-js">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1d36">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111f">
+  <meta name="color-scheme" content="dark">
+  <!-- HTMX 2 skips swapping 4xx/5xx by default; the contact form returns its error states as 400/429/502. -->
+  <meta name="htmx-config" content='{"responseHandling":[{"code":"204","swap":false},{"code":"[2345]..","swap":true}]}'>
 
-  <title>{% block title %}Marius Teler — Executive Director · Courier IT & Operations{% endblock %}</title>
-  <meta name="description" content="Two decades in the courier industry — from the call-center floor to the executive chair. I direct DSC Dragon Star Curier with IT and Development under my remit.">
-  <meta name="robots" content="index, follow">
+  <title>{% block title %}{{ t.meta.title }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ t.meta.description }}{% endblock %}">
+  <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
+  <link rel="canonical" href="{{ site_url }}{{ request.path }}">
+  <link rel="alternate" hreflang="en" href="{{ site_url }}/">
+  <link rel="alternate" hreflang="ro" href="{{ site_url }}/ro/">
+  <link rel="alternate" hreflang="x-default" href="{{ site_url }}/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="profile">
-  <meta property="og:url" content="https://teler.net/">
-  <meta property="og:title" content="Marius Teler — Executive Director · Courier IT & Operations">
-  <meta property="og:description" content="Self-taught. Optimizing courier businesses since 2008.">
+  <meta property="og:url" content="{{ site_url }}{{ home }}">
+  <meta property="og:locale" content="{{ t.locale }}">
+  <meta property="og:site_name" content="teler.net">
+  <meta property="og:title" content="{{ t.meta.title }}">
+  <meta property="og:description" content="{{ t.meta.og_description }}">
   <meta property="og:image" content="https://teler.net/static/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Marius Teler — Executive Director">
-  <meta name="twitter:description" content="Self-taught. Optimizing courier businesses since 2008.">
+  <meta name="twitter:title" content="{{ t.meta.title }}">
+  <meta name="twitter:description" content="{{ t.meta.og_description }}">
   <meta name="twitter:image" content="https://teler.net/static/img/og-image.png">
 
-  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+  <link rel="icon" type="image/svg+xml" href="{{ static_v('img/favicon.svg') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ static_v('css/styles.css') }}">
+  <link rel="preload" as="image" href="{{ static_v('img/portrait.jpg') }}">
 
-  <script src="https://unpkg.com/htmx.org@2.0.3" defer></script>
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <script src="{{ static_v('js/vendor/htmx-2.0.3.min.js') }}" defer></script>
+  <script src="{{ static_v('js/main.js') }}" defer></script>
 
   <!-- JSON-LD Person schema -->
   <script type="application/ld+json">
@@ -46,6 +60,8 @@
       "addressRegion": "Bucharest",
       "addressCountry": "RO"
     },
+    "knowsAbout": ["Courier operations", "Logistics IT", "Python", "Flask", "HTMX", "PostgreSQL", "Team leadership"],
+    "knowsLanguage": ["ro", "en"],
     "sameAs": [
       "https://github.com/MariusTeler",
       "https://www.facebook.com/marius.teler"
@@ -54,12 +70,12 @@
   }
   </script>
 </head>
-<body>
+<body data-lang="{{ lang }}">
+  <a class="skip-link" href="#main">{{ t.nav.skip }}</a>
   {% include "partials/_nav.html" %}
-  <main>
+  <main id="main">
     {% block content %}{% endblock %}
   </main>
   {% include "partials/_footer.html" %}
-  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 </body>
 </html>

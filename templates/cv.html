@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="{{ cv.lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex">
+  <title>{{ cv.doc_title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&display=swap" rel="stylesheet">
+  <style>
+    @page { size: A4; margin: 12mm 0 12mm; }
+    @page :first { margin-top: 0; }
+    :root {
+      --night: #0b1a2f; --ink: #1b2a41; --body: #3a4659; --muted: #6c7789;
+      --gold: #b88f3a; --gold-soft: #e9dcc0; --line: #e3e6ec; --panel: #f4f6f9;
+      --serif: "Newsreader", Georgia, serif; --sans: "Hanken Grotesk", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      width: 210mm; font: 400 9.3pt/1.5 var(--sans); color: var(--body);
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, p, ul, dl { margin: 0; }
+
+    /* Header */
+    .head {
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 27mm 1fr auto; gap: 7mm; align-items: center;
+      padding: 12mm 15mm 11mm; background: var(--night); color: #e8edf4;
+    }
+    .head::after { /* the route motif, faint */
+      content: ""; position: absolute; inset: auto -10mm -18mm 30%; height: 40mm;
+      border-top: 1px dashed rgba(201, 161, 74, .35); border-radius: 50%;
+    }
+    .photo { width: 27mm; height: 27mm; border-radius: 50%; object-fit: cover; border: 1.2mm solid rgba(201, 161, 74, .35); }
+    .name { font: 400 27pt/1 var(--serif); letter-spacing: -.02em; color: #fff; }
+    .full-name { margin-top: 2.2mm; font-size: 8.6pt; color: #9aa7ba; }
+    .headline { margin-top: 1.4mm; font: italic 400 12pt/1.25 var(--serif); color: #e3c27a; }
+    .contact { display: grid; gap: 1.3mm; font-size: 8.6pt; text-align: right; position: relative; z-index: 1; }
+    .contact span { color: #9aa7ba; margin-right: 2mm; }
+
+    /* Body */
+    .cols { display: grid; grid-template-columns: 1fr 63mm; }
+    .main { padding: 9mm 9mm 12mm 15mm; }
+    .side { padding: 9mm 15mm 12mm 8mm; background: var(--panel); }
+    .label {
+      display: flex; align-items: center; gap: 2.5mm; margin: 0 0 3.5mm;
+      font: 600 8.4pt/1 var(--sans); letter-spacing: .06em; color: var(--gold); text-transform: uppercase;
+    }
+    .label::before { content: ""; width: 2mm; height: 2mm; border-radius: .5mm; background: var(--gold); }
+    section + section { margin-top: 7mm; }
+    .profile { font: 400 10.4pt/1.55 var(--serif); color: var(--ink); }
+
+    /* Experience as a route */
+    .jobs { list-style: none; padding: 0; position: relative; }
+    .jobs::before { content: ""; position: absolute; left: 1.1mm; top: 2mm; bottom: 2mm; width: .3mm; background: var(--gold-soft); }
+    .job { position: relative; padding-left: 6.5mm; break-inside: avoid; }
+    .job + .job { margin-top: 4.6mm; }
+    .job::before {
+      content: ""; position: absolute; left: 0; top: 1.3mm; width: 2.5mm; height: 2.5mm; border-radius: 50%;
+      background: #fff; border: .45mm solid var(--gold);
+    }
+    .job:first-child::before { background: var(--gold); }
+    .job-top { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+    .role { font: 500 11.4pt/1.2 var(--serif); color: var(--ink); }
+    .when { flex-shrink: 0; font-size: 8.4pt; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .co { margin: .6mm 0 1.4mm; font-size: 8.8pt; font-weight: 600; color: var(--gold); }
+    .co span { font-weight: 400; color: var(--muted); }
+    .points { padding-left: 3.6mm; }
+    .points li { margin-top: .7mm; }
+    .points li::marker { color: var(--gold); }
+
+    /* Side panel */
+    .side dl > div + div { margin-top: 2.6mm; }
+    .side dt { font-weight: 600; color: var(--ink); font-size: 8.9pt; }
+    .side dd { margin: .4mm 0 0; font-size: 8.6pt; }
+    .proj + .proj { margin-top: 3mm; }
+    .proj b { font: 500 10.2pt/1.2 var(--serif); color: var(--ink); }
+    .proj i { font-style: normal; font-size: 8pt; color: var(--muted); margin-left: 1.5mm; }
+    .proj p { font-size: 8.5pt; margin-top: .5mm; }
+    .edu + .edu { margin-top: 2.6mm; }
+    .edu b { display: block; color: var(--ink); font-size: 8.9pt; }
+    .edu span { display: block; font-size: 8.5pt; }
+    .sign { margin-top: 8mm; white-space: nowrap; font: 400 26pt/1 "Allura", cursive; color: var(--gold); opacity: .8; }
+    .side dl > div, .proj, .edu, .label { break-inside: avoid; }
+    .label { break-after: avoid; }
+    .updated { margin-top: 1mm; font-size: 7.8pt; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="head">
+    <img class="photo" src="{{ static_v('img/portrait.jpg') }}" alt="">
+    <div>
+      <h1 class="name">{{ cv.name }}</h1>
+      <p class="headline">{{ cv.headline }}</p>
+      <p class="full-name">{{ cv.full_name }}</p>
+    </div>
+    <ul class="contact" style="list-style:none;padding:0;">
+      {% for c in cv.contact %}
+      <li><span>{{ c[0] }}</span>{% if c[2] %}<a href="{{ c[2] }}">{{ c[1] }}</a>{% else %}{{ c[1] }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </header>
+
+  <div class="cols">
+    <main class="main">
+      <section>
+        <h2 class="label">{{ cv.labels.profile }}</h2>
+        <p class="profile">{{ cv.profile }}</p>
+      </section>
+
+      <section>
+        <h2 class="label">{{ cv.labels.experience }}</h2>
+        <ol class="jobs">
+          {% for j in cv.experience %}
+          <li class="job">
+            <div class="job-top"><h3 class="role">{{ j.role }}</h3><span class="when">{{ j.when }}</span></div>
+            <p class="co">{{ j.co }} <span>{{ j.where }}</span></p>
+            <ul class="points">{% for p in j.points %}<li>{{ p }}</li>{% endfor %}</ul>
+          </li>
+          {% endfor %}
+        </ol>
+      </section>
+    </main>
+
+    <aside class="side">
+      <section>
+        <h2 class="label">{{ cv.labels.skills }}</h2>
+        <dl>{% for s in cv.skills %}<div><dt>{{ s[0] }}</dt><dd>{{ s[1] }}</dd></div>{% endfor %}</dl>
+      </section>
+
+      <section>
+        <h2 class="label">{{ cv.labels.projects }}</h2>
+        {% for p in cv.projects %}
+        <div class="proj"><b>{{ p[0] }}</b><i>{{ p[1] }}</i><p>{{ p[2] }}</p></div>
+        {% endfor %}
+      </section>
+
+      <section>
+        <h2 class="label">{{ cv.labels.languages }}</h2>
+        <dl>{% for l in cv.languages %}<div><dt>{{ l[0] }}</dt><dd>{{ l[1] }}</dd></div>{% endfor %}</dl>
+      </section>
+
+      <section>
+        <h2 class="label">{{ cv.labels.education }}</h2>
+        {% for e in cv.education %}
+        <div class="edu"><b>{{ e[0] }}</b><span>{{ e[1] }}</span><span>{{ e[2] }}</span></div>
+        {% endfor %}
+      </section>
+
+      <section>
+        <h2 class="label">{{ cv.labels.other }}</h2>
+        <dl>{% for o in cv.other %}<div><dt>{{ o[0] }}</dt><dd>{{ o[1] }}</dd></div>{% endfor %}</dl>
+      </section>
+
+      <p class="sign" aria-hidden="true">Marius Teler</p>
+      <p class="updated">{{ cv.labels.updated }}: {{ cv.updated }}</p>
+    </aside>
+  </div>
+</body>
+</html>

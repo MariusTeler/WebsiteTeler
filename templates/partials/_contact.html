@@ -1,14 +1,22 @@
+{% set c = t.contact %}
 <section class="contact" id="contact">
-  <div class="contact-inner">
-    <div>
-      <div class="sec-label">Contact</div>
-      <h3>Let's <em>move things</em><br>forward together.<span class="live-dot"></span></h3>
-      <p class="lead-c">Open to consulting on courier IT, software development partnerships, or full-time leadership roles. Reply within 24h, usually faster.</p>
+  <div class="wrap contact-grid">
+    <div class="contact-copy">
+      <h2 class="kicker">{{ c.kicker }}</h2>
+      <p class="contact-title">{{ c.title }}</p>
+      <p class="contact-lead">{{ c.lead }}</p>
       <ul class="contact-list">
-        <li><span class="key">Email</span><a href="mailto:marius.teler@gmail.com" style="color:inherit;">marius.teler@gmail.com</a></li>
-        <li><span class="key">Phone</span><a href="tel:+4070064137" style="color:inherit;">+40 700 64 137</a></li>
-        <li><span class="key">Location</span>Chiajna, Bucharest</li>
-        <li><span class="key">GitHub</span><a href="https://github.com/MariusTeler" style="color:inherit;" rel="noopener">github.com/MariusTeler</a></li>
+        <li>
+          <span class="contact-key">{{ c.keys.email }}</span>
+          <a href="mailto:marius.teler@gmail.com">marius.teler@gmail.com</a>
+          <button type="button" class="copy-btn" data-copy="marius.teler@gmail.com" data-copied="{{ c.copied }}" data-copy-fallback="{{ c.copy_fallback }}" aria-label="{{ c.copy_label }}">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span class="copy-done" aria-live="polite"></span>
+          </button>
+        </li>
+        <li><span class="contact-key">{{ c.keys.phone }}</span><a href="tel:+4070064137">+40 700 64 137</a></li>
+        <li><span class="contact-key">{{ c.keys.location }}</span><span>{{ c.location }}</span></li>
+        <li><span class="contact-key">{{ c.keys.github }}</span><a href="https://github.com/MariusTeler" rel="noopener" target="_blank">github.com/MariusTeler</a></li>
       </ul>
     </div>
     {% include "partials/_contact_form.html" %}

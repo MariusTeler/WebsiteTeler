@@ -1,0 +1,79 @@
+{% set pr = t.projects %}
+<section class="projects" id="projects">
+  <div class="wrap">
+    <div class="projects-head">
+      <div>
+        <h2 class="kicker">{{ pr.kicker }}</h2>
+        <p class="section-title">{{ pr.title }}</p>
+      </div>
+      <p class="projects-intro">{{ pr.intro }}</p>
+    </div>
+
+    <div class="proj-grid">
+      {% for m in projects_meta %}
+      {% set p = pr["items"][m.slug] %}
+      <article class="proj{% if m.size == 'wide' %} proj-wide{% endif %}" data-reveal>
+        <div class="proj-window">
+          <div class="proj-chrome" aria-hidden="true"><i></i><i></i><i></i><span>{{ m.host }}</span></div>
+          <div class="proj-screen">
+            {% if m.image %}
+            <img class="proj-shot" src="{{ static_v(m.image) }}" alt="{{ pr.preview_label.format(name=p.name) }}" loading="lazy" decoding="async" width="880" height="2200">
+            {% elif m.visual == 'kanban' %}
+            <div class="kanban" aria-hidden="true">
+              {% for col in p.visual.columns %}
+              <div class="kanban-col">
+                <p class="kanban-head">{{ col }}</p>
+                {% if loop.index0 == 0 %}<span class="kanban-card">{{ p.visual.cards[1] }}</span>{% endif %}
+                {% if loop.index0 == 1 %}<span class="kanban-card">{{ p.visual.cards[2] }}</span><span class="kanban-card">{{ p.visual.cards[3] }}</span>{% endif %}
+                {% if loop.index0 == 3 %}<span class="kanban-card is-done">{{ p.visual.cards[4] }}</span>{% endif %}
+              </div>
+              {% endfor %}
+              <span class="kanban-card kanban-mover">{{ p.visual.cards[0] }}</span>
+            </div>
+            {% elif m.visual == 'fleet' %}
+            <div class="fleet" aria-hidden="true">
+              <div class="fleet-row fleet-headrow">{% for h in p.visual.head %}<span>{{ h }}</span>{% endfor %}</div>
+              {% for row in p.visual.rows %}
+              <div class="fleet-row" style="--i:{{ loop.index0 }}">
+                <span class="fleet-vehicle"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7" cy="17" r="1.6" fill="currentColor"/><circle cx="17" cy="17" r="1.6" fill="currentColor"/></svg>{{ row[0] }}</span>
+                {% for cell in row[1:] %}<span class="fleet-pill is-{{ cell[1] }}">{{ cell[0] }}</span>{% endfor %}
+              </div>
+              {% endfor %}
+              <p class="fleet-note"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>{{ p.visual.note }}</p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="proj-body">
+          <p class="proj-meta">
+            <span class="proj-status is-{{ m.status }}">{{ pr.status[m.status] }}</span>
+            <span>{{ p.kind }}</span>
+          </p>
+          <h3 class="proj-name">{{ p.name }}</h3>
+          <p class="proj-text">{{ p.text }}</p>
+          <ul class="proj-stack" aria-label="Stack">{% for s in m.stack %}<li>{{ s }}</li>{% endfor %}</ul>
+          {% if m.url %}
+          <a class="proj-link" href="{{ m.url }}" target="_blank" rel="noopener">
+            <span>{{ pr.visit }}</span>
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="inhouse">
+      <div class="inhouse-head">
+        <h3>{{ pr.inhouse_title }}</h3>
+        <p>{{ pr.inhouse_intro }}</p>
+      </div>
+      <ul class="inhouse-grid">
+        {% for item in pr.inhouse %}
+        <li data-spotlight><b>{{ item[0] }}</b><span>{{ item[1] }}</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>

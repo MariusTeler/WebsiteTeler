@@ -1,18 +1,43 @@
-<nav class="nav">
-  <a class="logo" href="#" aria-label="Marius Teler — home">
-    <svg class="logo-mark" viewBox="0 0 100 70" aria-hidden="true">
-      <text x="25" y="56" font-family="Allura, cursive" font-size="62" fill="#c9a14a" text-anchor="middle">T</text>
-      <text x="70" y="56" font-family="Allura, cursive" font-size="28" fill="#fff" text-anchor="middle" opacity="0.95">m</text>
-      <path d="M 36 64 C 39 70, 43 56, 47 64 C 51 72, 55 56, 58 64 C 61 71, 67 53, 65 51" fill="none" stroke="#c9a14a" stroke-width="0.8" stroke-linecap="round" opacity="0.78"/>
-    </svg>
-    <span class="logo-wordmark">Marius Teler</span>
-  </a>
-  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-  <ul class="nav-menu">
-    <li><a href="#about">About</a></li>
-    <li><a href="#journey">Journey</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a class="cta" href="#contact">Get in touch</a>
-</nav>
+{% set sections = ["about", "journey", "projects", "expertise", "contact"] %}
+<header class="nav" data-nav>
+  <div class="nav-progress" aria-hidden="true"><span></span></div>
+  <div class="nav-bar">
+    <a class="logo" href="{{ home }}#top" aria-label="{{ t.nav.home_label }}">
+      <svg class="logo-mark" viewBox="0 0 100 70" aria-hidden="true">
+        <text x="25" y="56" font-family="Allura, cursive" font-size="62" fill="#c9a14a" text-anchor="middle">T</text>
+        <text x="70" y="56" font-family="Allura, cursive" font-size="28" fill="#fff" text-anchor="middle" opacity="0.95">m</text>
+        <path d="M 36 64 C 39 70, 43 56, 47 64 C 51 72, 55 56, 58 64 C 61 71, 67 53, 65 51" fill="none" stroke="#c9a14a" stroke-width="0.8" stroke-linecap="round" opacity="0.78"/>
+      </svg>
+      <span class="logo-wordmark">Marius Teler</span>
+    </a>
+
+    <nav class="nav-links" aria-label="{{ t.nav.sections }}">
+      <ul data-nav-list>
+        {% for s in sections %}<li><a href="{{ home }}#{{ s }}">{{ t.nav[s] }}</a></li>{% endfor %}
+      </ul>
+      <span class="nav-indicator" aria-hidden="true"></span>
+    </nav>
+
+    <a class="lang-switch" href="{{ alt_home }}" hreflang="{{ alt_lang }}" lang="{{ alt_lang }}" aria-label="{{ t.nav.switch_label }}" data-lang-switch>
+      <span class="{% if lang == 'en' %}is-on{% endif %}">EN</span><span class="{% if lang == 'ro' %}is-on{% endif %}">RO</span>
+    </a>
+
+    <a class="nav-cta" href="{{ home }}#contact">{{ t.nav.cta }}</a>
+
+    <button class="nav-toggle" type="button" aria-label="{{ t.nav.menu_open }}" aria-expanded="false" aria-controls="mobile-menu"
+            data-label-open="{{ t.nav.menu_open }}" data-label-close="{{ t.nav.menu_close }}">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <ul>
+      {% for s in sections %}<li><a href="{{ home }}#{{ s }}">{{ t.nav[s] }}</a></li>{% endfor %}
+    </ul>
+    <div class="mobile-menu-foot">
+      <a href="mailto:marius.teler@gmail.com">marius.teler@gmail.com</a>
+      <a href="{{ cv_href }}">{{ t.nav.cv }}</a>
+      <a href="{{ alt_home }}" hreflang="{{ alt_lang }}" lang="{{ alt_lang }}" data-lang-switch>{{ t.nav.switch_label }}</a>
+    </div>
+  </div>
+</header>
